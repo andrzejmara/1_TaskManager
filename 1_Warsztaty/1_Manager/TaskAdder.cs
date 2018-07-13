@@ -1,18 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace _1_Manager
 {
-	partial class Program
-	{
+
 		public static class TaskAdder
 		{
 
-			public static void AddTask()
+			public static TaskModel AddTask()
 			{
 				Console.WriteLine("Add Description: ");
 				string description = Console.ReadLine();
 				bool? allDay = null;
 				bool? important = null;
+				DateTime Start = DateTime.Now;
+				DateTime End = DateTime.MaxValue;
+				int i;
 
 				do
 				{
@@ -27,13 +30,15 @@ namespace _1_Manager
 					}
 					else if (willTakeAllDay.Trim().ToLower() == "n")
 					{
+
 						allDay = false;
 						Console.WriteLine("Add Start Date in format [year.month.day]: ");
 						string startDate = Console.ReadLine();
-						DateTime Start = DateTime.Parse(startDate);
+						Start = DateTime.Parse(startDate);
+
 						Console.WriteLine("Add End Date in format [year.month.day]: ");
 						string endDate = Console.ReadLine();
-						DateTime End = DateTime.Parse(endDate);
+						End = DateTime.Parse(endDate);
 						break;
 					}
 					else
@@ -48,11 +53,11 @@ namespace _1_Manager
 					string isImportant = Console.ReadLine();
 					if (isImportant.Trim().ToLower() == "y")
 					{
-
+						important = true;
 					}
 					else if (isImportant.Trim().ToLower() == "n")
 					{
-
+						important = false;
 					}
 					else
 					{
@@ -62,8 +67,10 @@ namespace _1_Manager
 				} while (!important.HasValue);
 
 
+				return new TaskModel(description, Start, End, allDay, important);
+
 			}
 		}
-	
-}
-}
+
+	}
+
