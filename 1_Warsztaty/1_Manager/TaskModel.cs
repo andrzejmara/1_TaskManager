@@ -15,13 +15,10 @@ namespace _1_Manager
 
 
 
-		public TaskModel(string description, DateTime startDate)
+		public TaskModel()
 		{
 			
-			_description = description;
-			_startDate = startDate;
-			
-
 		}
+		
 	}
 }

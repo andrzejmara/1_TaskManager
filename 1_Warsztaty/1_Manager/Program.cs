@@ -5,7 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace _1_Manager
 {
-	class Program
+	partial class Program
 	{
 		static void Main(string[] args)
 		{
@@ -20,20 +20,22 @@ namespace _1_Manager
 
 				if (command == "add")
 				{
+					TaskAdder.AddTask();
 					Console.WriteLine("Added");
 				}
 				else if (command == "delete")
 				{
 					Console.WriteLine("Deleted");
 				}
-				else if ( command == "show")
+				else if (command == "show")
 				{
 					Console.WriteLine("Showed");
 				}
 				else if (command == "save")
 				{
 					Console.WriteLine("Saved");
-				} else
+				}
+				else
 				{
 					Console.WriteLine("Incorrect Command");
 				}
@@ -46,11 +48,6 @@ namespace _1_Manager
 		}
 
 		List<TaskModel> taskModels = new List<TaskModel>();
-
-		public void AddTask(string description, string startDate, string dayFlag)
-		{
-
-		}
-
-	}
+	
+}
 }
