@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
+using System.Net.Sockets;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
@@ -25,34 +27,36 @@ namespace _1_Manager
 
 
 					tasksList.Add(TaskAdder.AddTask());
+					//tasksList = tasksList.OrderBy(date => date._startDate).ToList();
+
+
+					var tasksListOrdered = from t in tasksList
+										   orderby t._important, t._startDate descending
+										   select t;
+					tasksList = tasksListOrdered.ToList();
+
+
 					Console.WriteLine("Added");
 
 
 				}
 				else if (command == "delete")
 				{
-					Console.WriteLine();
-					Console.WriteLine("Task List:");
-					foreach (TaskModel item in tasksList)
-					{
-						Console.WriteLine($"{tasksList.IndexOf(item)} {item._description}");
-					}
-					Console.WriteLine();
-					Console.WriteLine("Write a number of the Task you want to delete ");
-					string deleteThat = Console.ReadLine();
-					int deleteThatInt = int.Parse(deleteThat);
 
-					tasksList.RemoveAt(deleteThatInt);
-					Console.WriteLine();
-					Console.WriteLine("Deleted");
+					TaskRemover.Remove(tasksList);
+
 				}
 				else if (command == "show")
 				{
 
 					Console.WriteLine("Task List:");
+
+
+
 					foreach (TaskModel item in tasksList)
 					{
-						Console.WriteLine($"{tasksList.IndexOf(item)} {item._description}");
+
+						Console.WriteLine($"{item._description} - {item._startDate}");
 					}
 					Console.WriteLine("Showed");
 				}
@@ -70,16 +74,6 @@ namespace _1_Manager
 
 			} while (command != "exit");
 			Console.ReadLine();
-			
-			
-			
-			
-			
 		}
-
 	}
-
-
-
-
 }
